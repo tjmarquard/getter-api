@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace GetterApi.Services.Services
 {
-    class QueryService
+    public interface IQueryService
     {
+        string GetWeatherApiEndpoints(string[] services);
+    }
+
+    public class QueryService : IQueryService
+    {
+        public string GetWeatherApiEndPoints(string[] services)
+        {
+            return "this is a thing";
+        }
     }
 }
