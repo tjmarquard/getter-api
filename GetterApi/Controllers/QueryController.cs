@@ -1,8 +1,6 @@
-﻿using GetterApi.Enums;
+﻿using GetterApi.Models;
+using GetterApiServices;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GetterApi.Controllers
@@ -11,17 +9,23 @@ namespace GetterApi.Controllers
     [Route("[controller]")]
     public class QueryController : ControllerBase
     {
+        private IQueryService _queryService;
+
+        public QueryController(IQueryService queryService)
+        {
+            _queryService = queryService;
+        }
+
         [HttpGet]
         [Route("{domain}")]
-        public async Task<IActionResult> Get(string domain, [FromQuery] string [] services)
+        public async Task<IActionResult> Get(string domain, [FromQuery] string[] services)
         {
-            if (!Enum.IsDefined(typeof(Domains), domain.ToUpperInvariant()))
+            if (!typeof(Domains).HasField(domain))
             {
                 return BadRequest();
             }
 
-            var rng = new Random();
-            return Ok(Enumerable.Range(1, 5).Select(index => rng.Next(1, 10)).ToArray());
+            return Ok(_queryService.GetWeatherApiEndPoints(services));
         }
     }
 }
