@@ -12,8 +12,8 @@
 
     public class WeatherControllerTest
     {
-        private IWeatherService weatherServiceMock;
-        private Fixture fixture;
+        private readonly IWeatherService weatherServiceMock;
+        private readonly Fixture fixture;
 
         public WeatherControllerTest()
         {
@@ -28,7 +28,7 @@
             var services = fixture.CreateMany<string>().ToArray();
             var responseMock = fixture.Create<string>();
 
-            weatherServiceMock.GetEndPoints(Arg.Any<string[]>()).Returns(responseMock);
+            weatherServiceMock.GetEndpoints(Arg.Any<string[]>()).Returns(responseMock);
 
             var result = await subjectUnderTest.Get(services);
             var okResult = result as OkObjectResult;
@@ -43,7 +43,7 @@
             var services = fixture.CreateMany<string>().ToArray();
             var expected = fixture.Create<string>();
 
-            weatherServiceMock.GetEndPoints(Arg.Any<string[]>()).Returns(expected);
+            weatherServiceMock.GetEndpoints(Arg.Any<string[]>()).Returns(expected);
 
             var result = await subjectUnderTest.Get(services);
             var okResult = result as OkObjectResult;

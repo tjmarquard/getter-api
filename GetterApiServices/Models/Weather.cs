@@ -9,7 +9,7 @@
     {
         public Weather(string[] services = null)
         {
-            SetSelectedEndPoints(services);
+            SetSelectedEndpoints(services);
         }
 
         [JsonProperty]
@@ -18,20 +18,20 @@
         public static Uri BaseUri => new ("https://api.weather.gov");
 
         [JsonProperty]
-        public static IEnumerable<EndPoint> AvailableEndPoints => new List<EndPoint>()
+        public static IEnumerable<Endpoint> AvailableEndpoints => new List<Endpoint>()
         {
-            new EndPoint()
+            new Endpoint()
             {
                 Name = "alerts",
                 Uri = new Uri(BaseUri, "alerts"),
             },
-            new EndPoint()
+            new Endpoint()
             {
                 Name = "activeAlerts",
                 Uri = new Uri(BaseUri, "alerts/active"),
                 Default = true,
             },
-            new EndPoint()
+            new Endpoint()
             {
                 Name = "alertTypes",
                 Uri = new Uri(BaseUri, "alerts/types"),
@@ -39,32 +39,32 @@
         };
 
         [JsonIgnore]
-        public List<EndPoint> SelectedEndPoints { get; set; }
+        public List<Endpoint> SelectedEndpoints { get; set; }
 
-        private void SetSelectedEndPoints(string[] services)
+        private void SetSelectedEndpoints(string[] services)
         {
-            SelectedEndPoints = new List<EndPoint>();
+            SelectedEndpoints = new List<Endpoint>();
 
             if (services != null)
             {
                 foreach (var service in services)
                 {
-                    SelectedEndPoints.AddRange(
-                        AvailableEndPoints.Where(endPoint => endPoint.Name.Equals(
+                    SelectedEndpoints.AddRange(
+                        AvailableEndpoints.Where(endPoint => endPoint.Name.Equals(
                             service,
                             StringComparison.OrdinalIgnoreCase)).ToList());
                 }
             }
 
-            SetDefaultEndPoints();
+            SetDefaultEndpoints();
         }
 
-        private void SetDefaultEndPoints()
+        private void SetDefaultEndpoints()
         {
-            if (SelectedEndPoints.Count == 0)
+            if (SelectedEndpoints.Count == 0)
             {
-                SelectedEndPoints.AddRange(
-                    AvailableEndPoints.Where(endpoint => endpoint.Default));
+                SelectedEndpoints.AddRange(
+                    AvailableEndpoints.Where(endpoint => endpoint.Default));
             }
         }
     }

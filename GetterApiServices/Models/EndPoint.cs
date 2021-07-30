@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class EndPoint
+    public class Endpoint
     {
         public string Name { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace GetterApiTests.ModelTests
+﻿namespace GetterApiServicesTests.ModelTests
 {
     using System.Linq;
     using AutoFixture;
@@ -16,36 +16,36 @@
         }
 
         [Fact]
-        public void ShouldHaveAvailableEndPoints()
+        public void ShouldHaveAvailableEndpoints()
         {
-            var numberOfAvailableEndPoints = Weather.AvailableEndPoints.Count();
-            numberOfAvailableEndPoints.Should().BeGreaterThan(0);
+            var numberOfAvailableEndpoints = Weather.AvailableEndpoints.Count();
+            numberOfAvailableEndpoints.Should().BeGreaterThan(0);
         }
 
         [Fact]
-        public void ShouldSetDefaultEndPointsWhenGivenNoMatchingServices()
+        public void ShouldSetDefaultEndpointsWhenGivenNoMatchingServices()
         {
             var services = fixture.CreateMany<string>().ToArray();
             var subjectUnderTest = new Weather(services);
 
             var isEqual = Enumerable.SequenceEqual(
-                Weather.AvailableEndPoints.Where(endpoint => endpoint.Default).Select(endpoint => endpoint.Name).OrderBy(name => name),
-                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
+                Weather.AvailableEndpoints.Where(endpoint => endpoint.Default).Select(endpoint => endpoint.Name).OrderBy(name => name),
+                subjectUnderTest.SelectedEndpoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
 
             Assert.True(isEqual);
         }
 
         [Fact]
-        public void ShouldReturnRequestedEndPointsWhenGivenMatchingService()
+        public void ShouldReturnRequestedEndpointsWhenGivenMatchingService()
         {
             var services = new string[] { "alerts" };
             var subjectUnderTest = new Weather(services);
 
             var isEqual = Enumerable.SequenceEqual(
                 services.OrderBy(name => name),
-                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
+                subjectUnderTest.SelectedEndpoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
 
-            Assert.Equal(subjectUnderTest.SelectedEndPoints.Count, services.Length);
+            Assert.Equal(subjectUnderTest.SelectedEndpoints.Count, services.Length);
             Assert.True(isEqual);
         }
     }

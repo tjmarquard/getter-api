@@ -11,7 +11,7 @@
 
     public interface IWeatherService
     {
-        public Task<string> GetEndPoints(string[] services);
+        public Task<string> GetEndpoints(string[] services);
     }
 
     public class WeatherService : IWeatherService
@@ -28,16 +28,16 @@
             this.headerValue = new ProductInfoHeaderValue(userAgentApp, userAgentContact.ToString());
         }
 
-        public async Task<string> GetEndPoints(string[] services)
+        public async Task<string> GetEndpoints(string[] services)
         {
             var weather = new Weather(services);
             var responseContents = new List<dynamic>();
 
             var tasks = new List<Task<HttpResponseMessage>>();
 
-            foreach (var endPoint in weather.SelectedEndPoints)
+            foreach (var endPoint in weather.SelectedEndpoints)
             {
-                tasks.Add(GetEndPoint(endPoint.Uri));
+                tasks.Add(GetEndpoint(endPoint.Uri));
             }
 
             while (tasks.Any())
@@ -58,7 +58,7 @@
             return JsonConvert.SerializeObject(responseContents);
         }
 
-        private Task<HttpResponseMessage> GetEndPoint(Uri uri)
+        private Task<HttpResponseMessage> GetEndpoint(Uri uri)
         {
             var httpRequestMessage = new HttpRequestMessage()
             {

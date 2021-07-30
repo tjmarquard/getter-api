@@ -18,7 +18,7 @@
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string[] services)
         {
-            var response = await weatherService.GetEndPoints(services);
+            var response = await weatherService.GetEndpoints(services);
 
             return Ok(response);
         }
