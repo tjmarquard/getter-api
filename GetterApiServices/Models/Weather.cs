@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace GetterApi.Models
+﻿namespace GetterApiServices.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
+
     public class Weather
     {
+        public Weather(string[] services = null)
+        {
+            SetSelectedEndPoints(services);
+        }
+
+        [JsonProperty]
         public static string Name => "Weather";
 
-        public static Uri BaseUri => new Uri("https://api.weather.gov");
+        public static Uri BaseUri => new ("https://api.weather.gov");
 
+        [JsonProperty]
         public static IEnumerable<EndPoint> AvailableEndPoints => new List<EndPoint>()
         {
             new EndPoint()
@@ -30,22 +38,22 @@ namespace GetterApi.Models
             },
         };
 
-        public Weather(string[] services)
-        {
-            SelectedEndPoints = new List<EndPoint>();
-            SetSelectedEndPoints(services);
-        }
-
+        [JsonIgnore]
         public List<EndPoint> SelectedEndPoints { get; set; }
 
         private void SetSelectedEndPoints(string[] services)
         {
-            foreach (var service in services)
+            SelectedEndPoints = new List<EndPoint>();
+
+            if (services != null)
             {
-                SelectedEndPoints.AddRange(
-                    AvailableEndPoints.Where(endPoint => endPoint.Name.Equals(
-                        service,
-                        StringComparison.OrdinalIgnoreCase)).ToList());
+                foreach (var service in services)
+                {
+                    SelectedEndPoints.AddRange(
+                        AvailableEndPoints.Where(endPoint => endPoint.Name.Equals(
+                            service,
+                            StringComparison.OrdinalIgnoreCase)).ToList());
+                }
             }
 
             SetDefaultEndPoints();
@@ -53,7 +61,7 @@ namespace GetterApi.Models
 
         private void SetDefaultEndPoints()
         {
-            if (SelectedEndPoints.Count() == 0)
+            if (SelectedEndPoints.Count == 0)
             {
                 SelectedEndPoints.AddRange(
                     AvailableEndPoints.Where(endpoint => endpoint.Default));

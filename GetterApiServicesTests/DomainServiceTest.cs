@@ -5,11 +5,11 @@ namespace GetterApiServicesTests
     using GetterApiServices;
     using Xunit;
 
-    public class QueryServiceTest
+    public class DomainServiceTest
     {
         private Fixture fixture;
 
-        public QueryServiceTest()
+        public DomainServiceTest()
         {
             fixture = new Fixture();
         }
@@ -17,11 +17,10 @@ namespace GetterApiServicesTests
         [Fact]
         public void ShouldReturnString()
         {
-            var subjectUnderTest = new QueryService();
-            var services = fixture.CreateMany<string>().ToArray();
+            var subjectUnderTest = new DomainService();
             var expected = "empty";
 
-            var actual = subjectUnderTest.GetWeatherApiEndPoints(services);
+            var actual = subjectUnderTest.GetDomains();
 
             Assert.Equal(expected, actual);
         }

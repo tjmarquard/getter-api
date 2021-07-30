@@ -1,18 +1,20 @@
-﻿using AutoFixture;
-using FluentAssertions;
-using GetterApi.Models;
-using System.Linq;
-using Xunit;
-
-namespace GetterApiTests.GetterApi.Models
+﻿namespace GetterApiTests.Models
 {
+    using System.Linq;
+    using AutoFixture;
+    using FluentAssertions;
+    using GetterApiServices.Models;
+    using Xunit;
+
     public class WeatherTest
     {
-        private Fixture _fixture;
+        private Fixture fixture;
+
         public WeatherTest()
         {
-            _fixture = new Fixture();
+            fixture = new Fixture();
         }
+
         [Fact]
         public void ShouldHaveAvailableEndPoints()
         {
@@ -23,13 +25,12 @@ namespace GetterApiTests.GetterApi.Models
         [Fact]
         public void ShouldSetDefaultEndPointsWhenGivenNoMatchingServices()
         {
-            var services = _fixture.CreateMany<string>().ToArray();
+            var services = fixture.CreateMany<string>().ToArray();
             var subjectUnderTest = new Weather(services);
 
             var isEqual = Enumerable.SequenceEqual(
                 Weather.AvailableEndPoints.Where(endpoint => endpoint.Default).Select(endpoint => endpoint.Name).OrderBy(name => name),
-                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name)
-                );
+                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
 
             Assert.True(isEqual);
         }
@@ -42,10 +43,9 @@ namespace GetterApiTests.GetterApi.Models
 
             var isEqual = Enumerable.SequenceEqual(
                 services.OrderBy(name => name),
-                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name)
-                );
+                subjectUnderTest.SelectedEndPoints.Select(endpoint => endpoint.Name).OrderBy(name => name));
 
-            Assert.Equal(subjectUnderTest.SelectedEndPoints.Count(), services.Length);
+            Assert.Equal(subjectUnderTest.SelectedEndPoints.Count, services.Length);
             Assert.True(isEqual);
         }
     }

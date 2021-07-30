@@ -1,6 +1,7 @@
 namespace GetterApi
 {
     using GetterApiServices;
+    using GetterApiServices.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -20,14 +21,17 @@ namespace GetterApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GetterApi", Version = "v1" });
             });
 
-            services.AddScoped<IQueryService, QueryService>();
+            services.AddScoped<IDomainService, DomainService>();
+            services.AddHttpClient<IWeatherService, WeatherService>(client =>
+            {
+                client.BaseAddress = Weather.BaseUri;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
