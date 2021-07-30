@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GetterApiServices
+﻿namespace GetterApiServices
 {
     public interface IQueryService
     {
@@ -11,7 +9,7 @@ namespace GetterApiServices
     {
         public string GetWeatherApiEndPoints(string[] services)
         {
-            throw new NotImplementedException();
+            return "empty";
         }
     }
 }

@@ -6,5 +6,6 @@ namespace GetterApi.Models
     {
         public string Name { get; set; }
         public Uri Uri { get; set; }
+        public bool Default { get; set; } = false;
     }
 }

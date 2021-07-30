@@ -1,4 +1,5 @@
-﻿using GetterApi.Models;
+﻿using GetterApi.Extensions;
+using GetterApi.Models;
 using GetterApiServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

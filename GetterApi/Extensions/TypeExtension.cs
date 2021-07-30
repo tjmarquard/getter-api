@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-
-namespace GetterApi
+﻿namespace GetterApi.Extensions
 {
-    public static class Extensions
+    using System;
+    using System.Linq;
+
+    public static class TypeExtension
     {
         public static bool HasField(this Type obj, string fieldName)
         {
