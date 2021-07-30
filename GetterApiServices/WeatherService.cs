@@ -17,12 +17,13 @@
     public class WeatherService : IWeatherService
     {
         private readonly HttpClient httpclient;
-        private string userAgentApp = "GetterApi";
-        private Guid userAgentContact = default;
-        private ProductInfoHeaderValue headerValue;
+        private readonly ProductInfoHeaderValue headerValue;
 
         public WeatherService(HttpClient httpclient)
         {
+            var userAgentApp = "GetterApi";
+            var userAgentContact = default(Guid);
+
             this.httpclient = httpclient;
             this.headerValue = new ProductInfoHeaderValue(userAgentApp, userAgentContact.ToString());
         }

@@ -1,6 +1,5 @@
 ﻿namespace GetterApi.Controllers
 {
-    using System.Threading.Tasks;
     using GetterApiServices;
     using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,7 @@
     [ApiController]
     public class DomainController : ControllerBase
     {
-        private IDomainService domainService;
+        private readonly IDomainService domainService;
 
         public DomainController(IDomainService domainService)
         {

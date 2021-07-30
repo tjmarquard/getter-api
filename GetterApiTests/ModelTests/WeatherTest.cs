@@ -1,4 +1,4 @@
-﻿namespace GetterApiTests.Models
+﻿namespace GetterApiTests.ModelTests
 {
     using System.Linq;
     using AutoFixture;
@@ -8,7 +8,7 @@
 
     public class WeatherTest
     {
-        private Fixture fixture;
+        private readonly Fixture fixture;
 
         public WeatherTest()
         {

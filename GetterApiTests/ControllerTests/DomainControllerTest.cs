@@ -9,8 +9,8 @@
 
     public class DomainControllerTest
     {
-        private IDomainService domainServiceMock;
-        private Fixture fixture;
+        private readonly IDomainService domainServiceMock;
+        private readonly Fixture fixture;
 
         public DomainControllerTest()
         {
