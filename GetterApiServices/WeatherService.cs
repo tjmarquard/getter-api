@@ -44,11 +44,14 @@
                 var finishedTask = await Task.WhenAny(tasks);
                 tasks.Remove(finishedTask);
 
-                var contents = await (await finishedTask).Content.ReadAsStringAsync();
+                var response = await finishedTask;
 
-                dynamic obj = JsonConvert.DeserializeObject(contents);
-
-                responseContents.Add(obj);
+                if (response.IsSuccessStatusCode)
+                {
+                    var contents = await response.Content.ReadAsStringAsync();
+                    dynamic obj = JsonConvert.DeserializeObject(contents);
+                    responseContents.Add(obj);
+                }
             }
 
             return JsonConvert.SerializeObject(responseContents);
