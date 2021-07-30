@@ -1,24 +1,15 @@
 namespace GetterApiServicesTests
 {
-    using System.Linq;
-    using AutoFixture;
     using GetterApiServices;
     using Xunit;
 
     public class DomainServiceTest
     {
-        private Fixture fixture;
-
-        public DomainServiceTest()
-        {
-            fixture = new Fixture();
-        }
-
         [Fact]
         public void ShouldReturnString()
         {
             var subjectUnderTest = new DomainService();
-            var expected = "empty";
+            var expected = "[{\"Name\":\"Weather\",\"AvailableEndPoints\":[{\"Name\":\"alerts\",\"Uri\":\"https://api.weather.gov/alerts\",\"Default\":false},{\"Name\":\"activeAlerts\",\"Uri\":\"https://api.weather.gov/alerts/active\",\"Default\":true},{\"Name\":\"alertTypes\",\"Uri\":\"https://api.weather.gov/alerts/types\",\"Default\":false}]}]";
 
             var actual = subjectUnderTest.GetDomains();
 

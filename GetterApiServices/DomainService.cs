@@ -1,6 +1,5 @@
 ﻿namespace GetterApiServices
 {
-    using System;
     using System.Collections.Generic;
     using GetterApiServices.Models;
     using Newtonsoft.Json;
